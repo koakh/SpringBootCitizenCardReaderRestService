@@ -16,13 +16,15 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
+import com.solidarychain.citizencardreaderapi.Citizen;
+
 import pt.gov.cartaodecidadao.*;
 
 @RestController
 public class HelloController {
 
-	@GetMapping("/")
-	public String index() {
+  @GetMapping("/")
+  public String index() {
     try {
       PTEID_ReaderSet.initSDK();
 
@@ -58,6 +60,6 @@ public class HelloController {
       System.out.println(e);
     }
 
-		return "Greetings from Spring Boot!";
-	}
+    return "Greetings from Spring Boot!";
+  }
 }

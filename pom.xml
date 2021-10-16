@@ -34,13 +34,13 @@
 		</dependency>
 
 		<!-- require to use pteidlibj -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>pt.gov.cartaodecidadao</groupId>
 			<artifactId>pteidlibj</artifactId>
 			<version>1.0.0</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/src/main/resources/lib/pteidlibj.jar</systemPath>
-		</dependency> -->
+			<systemPath>${basedir}/libs/arm64/pteidlibj.jar</systemPath>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
