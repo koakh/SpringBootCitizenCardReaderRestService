@@ -1,13 +1,18 @@
 # NOTES
 
 curl -k --request POST \
+
   --url https://192.168.31.206:5001/graphql \
   --header 'content-type: application/json' \
   --header 'user-agent: vscode-restclient' \
-  --data '{"query":"mutation SignInMutation($signUpEmail: String!, $signUpPassword: String!) {\n  signIn(email: $signUpEmail, password: $signUpPassword)\n}","variables":{"signUpEmail":"admin@admin.com","signUpPassword":"password"}}' | jq
+  --data '{"query":"mutation SignInMutation
+  ($signUpEmail: String!, $signUpPassword: String!) {\n  signIn(email: $signUpEmail, password: $signUpPassword)\n}","variables":{"signUpEmail":"admin@admin.com","signUpPassword":"password"}}' | jq
 
 
-https://spring.io/guides/gs/spring-boot/
+
+## Create Project with Spring initialzr
+
+- https://spring.io/guides/gs/spring-boot/
 
 ```shell
 $ ./mvnw spring-boot:run
@@ -44,4 +49,33 @@ cp libs/arm64/pteidlibj.jar /lib/aarch64-linux-gnu/
 
 
 - [ ] try delete /home/mario/Development/JavaCitizenCardReader/app/lib/arm64/pteidlibj.jar
-- [ ] use only files from /usr/local/lib
+- [ ] use only files from /usr/local/lib (new fix)
+
+
+
+		<!-- require to use pteidlibj -->
+		<dependency>
+			<groupId>pt.gov.cartaodecidadao</groupId>
+			<artifactId>pteidlibj</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/libs/arm64/pteidlibj.jar</systemPath>
+		</dependency>
+
+
+<environmentVariables>
+	<LD_LIBRARY_PATH>/usr/local/lib</LD_LIBRARY_PATH>
+</environmentVariables>
+<systemPropertyVariables>
+	<java.library.path>/usr/local/lib</java.library.path>
+</systemPropertyVariables>
+
+and MUST
+trick is  ./mvnw clean
+./mvnw spring-boot:run
+
+now we have lib working
+
+
+
+now gives other error
