@@ -79,3 +79,20 @@ now we have lib working
 
 
 now gives other error
+
+
+
+
+
+
+debug keeps show error
+Native code library failed to load. 
+java.lang.UnsatisfiedLinkError: no pteidlibj in java.library.path: [/usr/java/packages/lib, /usr/lib/aarch64-linux-gnu/jni, /lib/aarch64-linux-gnu, /usr/lib/aarch64-linux-gnu, /usr/lib/jni, /lib, /usr/lib]
+
+add "vmArgs": "-Djava.library.path=/usr/local/lib"
+to launch.json
+
+with this we can see MAVEN > dependencies > pt
+
+vscjava.vscode-java-dependency
+

@@ -32,7 +32,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
-
 		<!-- require to use pteidlibj -->
 		<dependency>
 			<groupId>pt.gov.cartaodecidadao</groupId>
@@ -66,17 +65,16 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-
-<environmentVariables>
-	<LD_LIBRARY_PATH>/usr/local/lib</LD_LIBRARY_PATH>
-</environmentVariables>
-<systemPropertyVariables>
-	<java.library.path>/usr/local/lib</java.library.path>
-</systemPropertyVariables>
-
+					<!-- require to use pteidlibj -->
+					<environmentVariables>
+						<LD_LIBRARY_PATH>/usr/local/lib</LD_LIBRARY_PATH>
+					</environmentVariables>
+					<systemPropertyVariables>
+						<java.library.path>/usr/local/lib</java.library.path>
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
-			<!-- require to use pteidlibj -->
+			<!-- NOT require to use pteidlibj -->
 			<!-- <plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
