@@ -11,5 +11,3 @@ class ApplicationTests {
 	}
 
 }
-git config --global user.email "marioammonteiro@gmail.com"
-git config --global user.name "Mário Monteiro"
