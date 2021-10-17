@@ -1,5 +1,14 @@
 # NOTES
 
+https://amagovpt.github.io/docs.autenticacao.gov/sdk/java/overview-summary.html
+
+
+
+
+
+
+
+
 curl -k --request POST \
 
   --url https://192.168.31.206:5001/graphql \

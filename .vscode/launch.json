@@ -12,9 +12,9 @@
     },
     {
       "type": "java",
-      "name": "Launch CitizencardreaderapiApplication",
+      "name": "Launch Application",
       "request": "launch",
-      "mainClass": "com.solidarychain.citizencardreaderapi.CitizencardreaderapiApplication",
+      "mainClass": "com.solidarychain.citizencardreaderapi.Application",
       "projectName": "citizencardreaderapi",
       // after install libs will be here /usr/local/lib
       "vmArgs": "-Djava.library.path=/usr/local/lib",

@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CitizencardreaderapiApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
 
 }
+git config --global user.email "marioammonteiro@gmail.com"
+git config --global user.name "Mário Monteiro"

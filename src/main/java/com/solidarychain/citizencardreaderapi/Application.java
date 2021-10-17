@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // import pt.gov.cartaodecidadao.*;
 
 @SpringBootApplication
-public class CitizencardreaderapiApplication {
+public class Application {
 	public static void main(String[] args) {
     try {
       System.loadLibrary("pteidlibj");
@@ -17,6 +17,6 @@ public class CitizencardreaderapiApplication {
     }
 		String path = System.getProperty("java.library.path");
 
-		SpringApplication.run(CitizencardreaderapiApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }

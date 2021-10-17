@@ -6,6 +6,7 @@
     "redhat.java",
     "redhat.vscode-xml",
     "Pivotal.vscode-spring-boot",
-    "redhat.fabric8-analytics"
+    "redhat.fabric8-analytics",
+    "humao.rest-client"    
   ]
 }
