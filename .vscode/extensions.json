@@ -6,6 +6,8 @@
     "redhat.java",
     "redhat.vscode-xml",
     "Pivotal.vscode-spring-boot",
-    "redhat.fabric8-analytics"
+    "redhat.fabric8-analytics",
+    "yzhang.markdown-all-in-one",
+    "mdickin.markdown-shortcuts"
   ]
 }
