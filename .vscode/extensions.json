@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "vscjava.vscode-maven",
+    "vscjava.vscode-java-debug",
+    "vscjava.vscode-java-pack",
+    "redhat.java",
+    "redhat.vscode-xml",
+    "Pivotal.vscode-spring-boot",
+    "redhat.fabric8-analytics"
+  ]
+}
