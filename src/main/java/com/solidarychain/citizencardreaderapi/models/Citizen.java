@@ -1,4 +1,4 @@
-package com.solidarychain.citizencardreaderapi;
+package com.solidarychain.citizencardreaderapi.models;
 
 import pt.gov.cartaodecidadao.PTEID_EId;
 import pt.gov.cartaodecidadao.PTEID_Exception;

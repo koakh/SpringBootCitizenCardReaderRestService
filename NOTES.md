@@ -1,22 +1,28 @@
 # NOTES
 
-https://amagovpt.github.io/docs.autenticacao.gov/sdk/java/overview-summary.html
+MAIN IMPORTANT LINK
+- https://amagovpt.github.io/docs.autenticacao.gov/sdk/java/overview-summary.html
 
 
 
 
-
-
-
-
+HOST=127.0.0.1:5001
+HOST=192.168.31.206:5001
+HOST=192.168.122.1:5001
 curl -k --request POST \
-
-  --url https://192.168.31.206:5001/graphql \
+  --url https://${HOST}/graphql \
   --header 'content-type: application/json' \
   --header 'user-agent: vscode-restclient' \
   --data '{"query":"mutation SignInMutation
-  ($signUpEmail: String!, $signUpPassword: String!) {\n  signIn(email: $signUpEmail, password: $signUpPassword)\n}","variables":{"signUpEmail":"admin@admin.com","signUpPassword":"password"}}' | jq
+  ($signUpEmail: String!, $signUpPassword: String!) { signIn(email: $signUpEmail, password: $signUpPassword)}","variables":{"signUpEmail":"admin@admin.com","signUpPassword":"password" } }' \
+	| jq
 
+
+curl -k --request POST \
+    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNTBlYmE5YS1mZmZhLTQ1MTYtYWYwMS05ZmRjZWExNjRmZmMiLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImlhdCI6MTYzNDQ5NDQ0OH0.GlM6PXzRHXd16p_r5dG8GV6MAVEVdlxbgqYJxeNecUw' \
+    --header 'content-type: application/json' \
+    --url https://localhost:5001/graphql \
+    --data '{"query":"mutation CreateUsersMutation($input: [UserCreateInput!]!) {\n  createUsers(input: $input) {\n    users {\n      id\n      email\n      roles\n    }\n  }\n}","variables":"{\n  \"input\": {\n    \"email\": \"john@mail.com\",\n    \"roles\": \"ROLE_USER\"\n  }\n}"}'
 
 
 ## Create Project with Spring initialzr

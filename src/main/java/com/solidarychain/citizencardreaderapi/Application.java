@@ -15,7 +15,8 @@ public class Application {
       System.err.println("Native code library failed to load. \n" + e);
       System.exit(1);
     }
-		String path = System.getProperty("java.library.path");
+    // TODO: output
+		// String path = System.getProperty("java.library.path");
 
 		SpringApplication.run(Application.class, args);
 	}

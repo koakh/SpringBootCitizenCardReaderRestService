@@ -6,21 +6,22 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Launch Current File",
-      "request": "launch",
-      "mainClass": "${file}"
-    },
-    {
-      "type": "java",
       "name": "Launch Application",
       "request": "launch",
       "mainClass": "com.solidarychain.citizencardreaderapi.Application",
       "projectName": "citizencardreaderapi",
       // after install libs will be here /usr/local/lib
       "vmArgs": "-Djava.library.path=/usr/local/lib",
+      // "vmArgs": "-Djava.library.path=${workspaceFolder}/libs/arm64"
       //"env": {
       //  "LD_LIBRARY_PATH": "libs/arm64/ "
       //}
-      }
+    },
+    {
+      "type": "java",
+      "name": "Launch Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    }
   ]
 }
