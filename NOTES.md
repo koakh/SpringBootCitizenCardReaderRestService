@@ -1,7 +1,44 @@
 # NOTES
 
+## Links
+
+### Autenticação.gov
+
 MAIN IMPORTANT LINK
 - https://amagovpt.github.io/docs.autenticacao.gov/sdk/java/overview-summary.html
+
+### SpringBoot
+
+
+
+- https://www.baeldung.com/httpurlconnection-post#8-read-the-response-from-input-stream
+- https://stackoverflow.com/questions/6908948/java-sun-security-provider-certpath-suncertpathbuilderexception-unable-to-find
+
+There is a lot of way to solve this...
+
+One way is set the TrustStore certificates in a keystore file and put it in the path of the application, and set these system properties in the main method:
+
+public static void main(String[] args) {
+  System.setProperty("javax.net.ssl.trustStore", "trust-store.jks");
+  System.setProperty("javax.net.ssl.trustStorePassword", "TrustStore");
+}
+
+I created the keystore file from a Certificate authority CA .crt file in this way:
+
+keytool -import -alias ca -keystore trust-store.jks -storepass TrustStore -trustcacerts -file ca.crt
+
+```shell
+$ keytool -import -alias ca -keystore trust-store.jks -storepass TrustStore -trustcacerts -file /tmp/localhost.pem
+```
+
+- https://www.ti-enxame.com/pt/java/como-corrigir-o-erro-java.security.cert.certificateexception-no-subject-alternative-names-present/1043257709/
+
+
+
+https://code.visualstudio.com/docs/languages/java
+
+
+https://www.baeldung.com/jackson-object-mapper-tutorial
 
 
 
