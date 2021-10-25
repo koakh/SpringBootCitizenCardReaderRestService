@@ -2,8 +2,8 @@ package com.solidarychain.citizencardreaderapi.controllers;
 
 import com.solidarychain.citizencardreaderapi.models.Citizen;
 import com.solidarychain.citizencardreaderapi.services.CardService;
+import com.solidarychain.citizencardreaderapi.utils.HttpUtils;
 import com.solidarychain.citizencardreaderapi.config.ConfigProperties;
-import com.solidarychain.utils.HttpUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
