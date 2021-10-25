@@ -14,6 +14,7 @@ import java.util.List;
 public class ConfigProperties {
   // @Getter
   private String graphqlFqnd;
+  private String graphqlPort;
   // @Getter
   private String graphqlUri;
   

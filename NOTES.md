@@ -1,5 +1,9 @@
 # NOTES
 
+
+./mvnw install
+./mvnw spring-boot:run
+
 ## Links
 
 ### Autenticação.gov
@@ -36,6 +40,7 @@ $ keytool -import -alias ca -keystore trust-store.jks -storepass TrustStore -tru
 
 
 https://code.visualstudio.com/docs/languages/java
+https://www.baeldung.com/java-visual-studio-code
 
 
 https://www.baeldung.com/jackson-object-mapper-tutorial

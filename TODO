@@ -1,0 +1,14 @@
+Project:
+  Backend:
+    ☐ env read fake card, usefull to code without citizen card reader
+      when read card uses a moke object
+    ☐ websocket/stomp server
+    ☐ insert/remove card dispatch event
+    ☐ insert/card request api to check if user is created or not
+      if created get uuid and generate qrcode image to show to user
+  FrontEnd:
+    ☐ embebbed react with websocket/stomp
+    ☐ add material-ui 5
+    ☐ moke ui
+  Client:
+    ☐ create some requests
