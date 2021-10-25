@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  # redirect_port: 8080
+# Custom Typed Properties
+config-properties:
+  foo: 1234
+  graphql-fqdn: 192.168.122.1
+  graphql-port: 5001
+  graphql-uri: https://${config-properties.graphql-fqdn}:${config-properties.graphql-port}/graphql
+  # drop-mongo-database: false
+  # moke-users:
+  #   # - undefined
+  #   - admin
+  #   - demo
+  #   - prod
+  #   - user
+  #   - test

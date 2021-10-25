@@ -4,10 +4,12 @@
     "vscjava.vscode-java-debug",
     "vscjava.vscode-java-pack",
     "redhat.java",
+    "SonarSource.sonarlint-vscode",
+    "afmicc.GetterAndSetterGenerator",
     "redhat.vscode-xml",
     "Pivotal.vscode-spring-boot",
     "redhat.fabric8-analytics",
     "gabrielbb.vscode-lombok",
-    "humao.rest-client"    
+    "humao.rest-client"
   ]
 }

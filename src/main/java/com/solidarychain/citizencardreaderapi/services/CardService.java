@@ -59,7 +59,7 @@ public class CardService {
     }
   }
 
-  // TODO:
+  // TODO: works if we close with ctrl+c
   // https://www.baeldung.com/spring-shutdown-callbacks
   // During the bean initialization, Spring will register all the bean methods
   // that are annotated with
