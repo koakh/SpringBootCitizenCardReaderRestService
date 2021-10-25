@@ -10,6 +10,8 @@
     "Pivotal.vscode-spring-boot",
     "redhat.fabric8-analytics",
     "gabrielbb.vscode-lombok",
-    "humao.rest-client"
+    "humao.rest-client",
+    "yzhang.markdown-all-in-one",
+    "mdickin.markdown-shortcuts"
   ]
 }

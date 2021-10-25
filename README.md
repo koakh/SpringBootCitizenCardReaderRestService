@@ -75,5 +75,5 @@ to configure the debugger we must use `"vmArgs": "-Djava.library.path=/usr/local
 
 ```shell
 $ mkdir /usr/local/lib/pteid_jni
-$ sudo cp /home/mario/autenticacao.gov/pteid-mw-pt/_src/eidmw/jar/pteidlibj.jar /usr/local/lib/pteid_jni
+$ sudo cp /home/${USER}/autenticacao.gov/pteid-mw-pt/_src/eidmw/jar/pteidlibj.jar /usr/local/lib/pteid_jni
 ```

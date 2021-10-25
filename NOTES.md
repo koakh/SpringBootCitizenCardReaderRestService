@@ -153,3 +153,27 @@ with this we can see MAVEN > dependencies > pt
 
 vscjava.vscode-java-dependency
 
+
+
+
+
+
+curl -k --request POST \
+
+  --url https://192.168.31.206:5001/graphql \
+  --header 'content-type: application/json' \
+  --header 'user-agent: vscode-restclient' \
+  --data '{"query":"mutation SignInMutation
+  ($signUpEmail: String!, $signUpPassword: String!) {\n  signIn(email: $signUpEmail, password: $signUpPassword)\n}","variables":{"signUpEmail":"admin@admin.com","signUpPassword":"password"}}' | jq
+
+request create user
+
+HOST=192.168.31.206:5001
+JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNTBlYmE5YS1mZmZhLTQ1MTYtYWYwMS05ZmRjZWExNjRmZmMiLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImlhdCI6MTYzNDQ5NDQ0OH0.GlM6PXzRHXd16p_r5dG8GV6MAVEVdlxbgqYJxeNecUw
+EMAIL=jane@mail.com
+curl -k --request POST \
+	--header "Authorization: Bearer ${JWT}" \
+	--header "content-type: application/json" \
+	--url https://${HOST}/graphql \
+	--data '{ "query" : "mutation CreateUsersMutation($input: [UserCreateInput!]!) { createUsers(input: $input) { users { id email roles } } }","variables":"{ \"input\": { \"email\": \"'${EMAIL}'\", \"roles\": \"ROLE_USER\" } }"}' \
+	| jq
