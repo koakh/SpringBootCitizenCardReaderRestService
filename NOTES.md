@@ -15,6 +15,9 @@ MAIN IMPORTANT LINK
 
 - https://spring.io/guides/tutorials/react-and-spring-data-rest/
 
+https://www.baeldung.com/spring-boot-react-crud
+https://github.com/eugenp/tutorials/tree/master/spring-boot-modules/spring-boot-react
+
 ### Java
 
 

@@ -6,6 +6,8 @@ Project:
     ☐ insert/remove card dispatch event
     ☐ insert/card request api to check if user is created or not
       if created get uuid and generate qrcode image to show to user
+    ☐ postgres spool repository to store offline citizenCards
+    ☐ spool repository send citizenCards to server
   FrontEnd:
     ☐ embebbed react with websocket/stomp
     ☐ add material-ui 5

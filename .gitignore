@@ -33,3 +33,5 @@ build/
 # .vscode/
 
 .bak
+**/node_modules/**
+frontend/node/**
