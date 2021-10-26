@@ -18,6 +18,14 @@ import pt.gov.cartaodecidadao.PTEID_ReaderSet;
 public class CardService {
   private PTEID_EIDCard card;
 
+  private void cardInsertedEvent() {
+    System.out.println("Card inserted...fire websocket event here");
+  }
+
+  private void cardRemovedEvent() {
+    System.out.println("Card removed...fire websocket event here");
+  }
+
   public CardService() {
     try {
       PTEID_ReaderSet.initSDK();
@@ -36,7 +44,8 @@ public class CardService {
           card = context.getEIDCard();
           System.out.println(String.format("card isActive %b", card.isActive()));
           // events
-          context.SetEventCallback(new CardEventsCallback(), null);
+          context.SetEventCallback(
+              new CardEventsCallback(() -> this.cardInsertedEvent(), () -> this.cardRemovedEvent()), null);
           if (card.isActive()) {
             PTEID_EId eid = card.getID();
             Citizen citizen = new Citizen(eid);

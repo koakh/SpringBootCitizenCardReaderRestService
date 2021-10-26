@@ -13,6 +13,11 @@ MAIN IMPORTANT LINK
 
 ### SpringBoot
 
+- https://spring.io/guides/tutorials/react-and-spring-data-rest/
+
+### Java
+
+
 
 
 - https://www.baeldung.com/httpurlconnection-post#8-read-the-response-from-input-stream

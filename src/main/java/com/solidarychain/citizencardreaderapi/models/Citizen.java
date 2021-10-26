@@ -108,7 +108,6 @@ public class Citizen {
   // indicações eventuais
   String accidentalIndications;
 
-
   public String getDocumentVersion() {
     return this.documentVersion;
   }

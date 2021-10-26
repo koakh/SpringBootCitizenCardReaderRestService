@@ -5,5 +5,32 @@
     // "/usr/local/lib/pteid_jni/pteidlibj.jar",
     "/usr/local/lib/**/*.jar"
   ],
-  "java.jdt.ls.vmargs":"-Dlog.level=ALL"
+  "java.jdt.ls.vmargs":"-Dlog.level=ALL",
+  // optimizations
+  "java.debug.settings.console": "internalConsole",
+  "java.debug.settings.forceBuildBeforeLaunch": true,
+  "java.silentNotification": true,
+  "screencastMode.onlyKeyboardShortcuts": true,
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/factorypath": true,
+  },
+  // TODO: move to user settings
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-1.8",
+      "path": "/path/to/jdk-8",
+    },
+    {
+      "name": "JavaSE-11",
+      "path": "/path/to/jdk-11",
+    },
+    {
+      "name": "JavaSE-17",
+      "path": "/path/to/jdk-17",
+      "default": true
+    },
+  ]
 }
