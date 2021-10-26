@@ -3,6 +3,7 @@
     "redhat.java",
     "redhat.vscode-xml",
     "redhat.fabric8-analytics",
+    "redhat.vscode-yaml",
     "vscjava.vscode-maven",
     "vscjava.vscode-java-debug",
     // "vscjava.vscode-java-pack",
@@ -12,6 +13,7 @@
     "gabrielbb.vscode-lombok",
     "humao.rest-client",
     "yzhang.markdown-all-in-one",
-    "mdickin.markdown-shortcuts"
+    "mdickin.markdown-shortcuts",
+    "esbenp.prettier-vscode"
   ]
 }

@@ -20,19 +20,16 @@ public class CardController {
   private ConfigProperties config;
 
   @Autowired
-  public CardController(
-      final ConfigProperties config,
-      final CardService cardService
-  ) {
+  public CardController(final ConfigProperties config, final CardService cardService) {
     this.config = config;
     this.cardService = cardService;
   }
 
-  @GetMapping("/")
+  @GetMapping()
   public String index() {
     try {
       PTEID_EIDCard card = this.cardService.getCard();
-      if (card.isActive()) {
+      if (card != null && card.isActive()) {
         PTEID_EId eid = card.getID();
         Citizen citizen = new Citizen(eid);
         System.out.println(citizen);
@@ -45,6 +42,11 @@ public class CardController {
     return "card readed from endpoint.";
   }
 
+  /**
+   * TODO: test signIn mutation
+   * 
+   * @return
+   */
   @GetMapping("/sign-in")
   public String testSignIn() {
     HttpUtils.graphql(this.config.getGraphqlFqdn(), this.config.getGraphqlUri());
