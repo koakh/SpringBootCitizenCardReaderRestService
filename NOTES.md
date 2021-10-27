@@ -1,5 +1,6 @@
 # NOTES
 
+curl localhost:8080/api/card/read
 
 ./mvnw install
 ./mvnw spring-boot:run
@@ -18,10 +19,15 @@ MAIN IMPORTANT LINK
 https://www.baeldung.com/spring-boot-react-crud
 https://github.com/eugenp/tutorials/tree/master/spring-boot-modules/spring-boot-react
 
+fix ws cors Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at http://localhost:8080/handler/info?t=1635372697890. (Reason: CORS request did not succeed).
+https://docs.spring.io/spring-framework/docs/4.2.4.RELEASE/spring-framework-reference/html/websocket.html#websocket-server-allowed-origins
+https://docs.spring.io/spring-framework/docs/4.2.4.RELEASE/spring-framework-reference/html/websocket.html#websocket-server-handler
+
+How to set base url for rest in spring boot?
+// https://stackoverflow.com/questions/32927937/how-to-set-base-url-for-rest-in-spring-boot
+this will leave / for react and thymeleaft if we need it and /api for all annotated RestControllers
+
 ### Java
-
-
-
 
 - https://www.baeldung.com/httpurlconnection-post#8-read-the-response-from-input-stream
 - https://stackoverflow.com/questions/6908948/java-sun-security-provider-certpath-suncertpathbuilderexception-unable-to-find
@@ -53,6 +59,19 @@ https://www.baeldung.com/java-visual-studio-code
 
 https://www.baeldung.com/jackson-object-mapper-tutorial
 
+
+## React
+
+USED npm install --save react-stomp-hooks
+
+https://www.npmjs.com/package/react-stomp
+A working implementation using Spring Boot and react-talk can be found at https://github.com/lahsivjar/spring-websocket-template/tree/master/with-sockjs
+/home/mario/Development/SpringBoot/spring-websocket-template
+fix missing types
+import SockJsClient from 'react-stomp';
+add frontend/src/modules.d.ts
+with
+declare module 'react-stomp';
 
 
 

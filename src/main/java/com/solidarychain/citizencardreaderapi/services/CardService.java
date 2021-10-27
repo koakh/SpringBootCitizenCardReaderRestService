@@ -1,11 +1,13 @@
 package com.solidarychain.citizencardreaderapi.services;
 
-import com.solidarychain.citizencardreaderapi.models.Citizen;
-
 import javax.annotation.PreDestroy;
 
 import com.solidarychain.citizencardreaderapi.CardEventsCallback;
+import com.solidarychain.citizencardreaderapi.config.WebSocketConfiguration;
+import com.solidarychain.citizencardreaderapi.models.Citizen;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import pt.gov.cartaodecidadao.PTEID_EIDCard;
@@ -16,17 +18,23 @@ import pt.gov.cartaodecidadao.PTEID_ReaderSet;
 
 @Service
 public class CardService {
+  
   private PTEID_EIDCard card;
+  private final SimpMessagingTemplate websocket;
 
   private void cardInsertedEvent() {
     System.out.println("Card inserted...fire websocket event here");
+    this.websocket.convertAndSend(WebSocketConfiguration.TOPIC_PREFIX + "/test", "{ message: 'Card inserted' }");
   }
 
   private void cardRemovedEvent() {
     System.out.println("Card removed...fire websocket event here");
+    this.websocket.convertAndSend(WebSocketConfiguration.TOPIC_PREFIX + "/test", "{ message: 'Card removed' }");
   }
 
-  public CardService() {
+  @Autowired
+  public CardService(final SimpMessagingTemplate websocket) {
+    this.websocket = websocket;
     try {
       PTEID_ReaderSet.initSDK();
 
