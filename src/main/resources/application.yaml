@@ -1,23 +1,30 @@
-# spring:
-#   data:
-#     rest:
-#       base-path: /api
+spring:
+  mvc:
+    # servlet:
+    #   path: /api
+    # data:
+    #   rest:
+    #     base-path: /api
+    locale: pt_PT
+    locale-resolver: fixed
+  messages:
+    encoding: UTF-8
+  thymeleaf:
+    thymeleaf.cache: false
+  jackson:
+    date-format: yyyy/MM/dd
 server:
   port: 8080
   # redirect_port: 8080
-  servlet:
-    context-path: /api
+  # server.contextPath is now deprecated, use server.servlet.context-path instead
+  # servlet:
+  #   context-path: /api
 # Custom Typed Properties
 config-properties:
-  foo: 1234
   graphql-fqdn: 192.168.122.1
   graphql-port: 5001
   graphql-uri: https://${config-properties.graphql-fqdn}:${config-properties.graphql-port}/graphql
-  # drop-mongo-database: false
   # moke-users:
-  #   # - undefined
   #   - admin
   #   - demo
   #   - prod
-  #   - user
-  #   - test

@@ -9,6 +9,9 @@ Project:
     ☐ postgres spool repository to store offline citizenCards
     ☐ spool repository send citizenCards to server
   FrontEnd:
+    ☐ @critical remove thymeleaf dependency, is not used anymore
+    ☐ @critical add notes how to add embbeded typescript cra react and plugins
+    ☐ @critical add debug, watch and other cool stuff to frontend
     ☐ embebbed react with websocket/stomp
     ☐ add material-ui 5
     ☐ moke ui
