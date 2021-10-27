@@ -46,7 +46,7 @@ public class CardController {
         return "card readed from endpoint.";
       } else {
         System.err.println("no card found");
-        this.websocket.convertAndSend(WebSocketConfiguration.TOPIC_PREFIX + "/test", " { 'message': 'no card found' }");
+        this.websocket.convertAndSend(WebSocketConfiguration.TOPIC_PREFIX + "/test", " { message: 'no card found' }");
         return "no card found";
       }
     } catch (PTEID_Exception e) {

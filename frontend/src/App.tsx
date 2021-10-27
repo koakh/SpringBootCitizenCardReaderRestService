@@ -9,8 +9,14 @@ function SubscribingComponent() {
   //If the STOMP connection itself is lost they are however restored on reconnect.
   //You can also supply an array as the first parameter, which will subscribe to all destinations in the array
   useSubscription("/topic/test", (message) => {
-    console.log(message.body);
-    setLastMessage(message.body)
+    // const payload = JSON.parse(message.body.replace(`'`, `"`));
+    // console.log(`payload: [${JSON.stringify(payload, undefined, 2)}]`);
+    // if (payload.givenName) {
+    //   console.log(`givenName: ${payload.givenName}`);
+    // } else if (payload.message){
+    //   console.log(`message: ${payload.message}`);
+    // };
+    setLastMessage(message.body);
   });
 
   return (

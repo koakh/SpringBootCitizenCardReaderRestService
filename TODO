@@ -1,20 +1,27 @@
 Project:
   Backend:
+    ✔ websocket/stomp server @done(21-10-27 23:21)
+    ✔ insert/remove card dispatch event @done(21-10-27 23:21)
     ☐ env read fake card, usefull to code without citizen card reader
       when read card uses a moke object
-    ☐ websocket/stomp server
-    ☐ insert/remove card dispatch event
     ☐ insert/card request api to check if user is created or not
       if created get uuid and generate qrcode image to show to user
     ☐ postgres spool repository to store offline citizenCards
     ☐ spool repository send citizenCards to server
+    ☐ read picture and other data from card, 
+      like rsa pub certificates to VALIDATE
+    ☐ sign DOCUMENT's with card and rsa private key
   FrontEnd:
+    ✔ embebbed react with websocket/stomp @done(21-10-27 23:20)
     ☐ @critical remove thymeleaf dependency, is not used anymore
     ☐ @critical add notes how to add embbeded typescript cra react and plugins
     ☐ @critical add debug, watch and other cool stuff to frontend
     ☐ i18n select language kiosk mode
-    ☐ embebbed react with websocket/stomp
     ☐ add material-ui 5
-    ☐ moke ui
+    ☐ moke ui on paper or tool
+    Buttons:
+      ☐ create | update account on server
+      ☐ delete account if created
+      ☐ 
   Client:
     ☐ create some requests
