@@ -34,7 +34,7 @@ public class CardController {
   @GetMapping("/read")
   public String index() {
     try {
-      // TODO: move all this stuff to service
+      // TODO: move all this stuff to service readCard
       PTEID_EIDCard card = this.cardService.getCard();
       if (card != null && card.isActive()) {
         PTEID_EId eid = card.getID();
@@ -43,13 +43,15 @@ public class CardController {
         // transmit a message over the WebSocket. This is a pub-sub approach so that one message is relayed to every attached consumer.
         // The route of each message is different, allowing multiple messages to be sent to distinct receivers on the client while needing only one open WebSocket — a resource-efficient approach.
         this.websocket.convertAndSend(WebSocketConfiguration.TOPIC_PREFIX + "/test", citizen.toString());
+        return "card readed from endpoint.";
       } else {
         System.err.println("no card found");
-        this.websocket.convertAndSend(WebSocketConfiguration.TOPIC_PREFIX + "/test", " { message: 'no card found' }");
+        this.websocket.convertAndSend(WebSocketConfiguration.TOPIC_PREFIX + "/test", " { 'message': 'no card found' }");
+        return "no card found";
       }
     } catch (PTEID_Exception e) {
       e.printStackTrace();
-    }
-    return "card readed from endpoint.";
+      return e.getCause().getMessage();
+    }    
   }
 }

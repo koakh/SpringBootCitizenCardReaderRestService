@@ -12,6 +12,7 @@ Project:
     ☐ @critical remove thymeleaf dependency, is not used anymore
     ☐ @critical add notes how to add embbeded typescript cra react and plugins
     ☐ @critical add debug, watch and other cool stuff to frontend
+    ☐ i18n select language kiosk mode
     ☐ embebbed react with websocket/stomp
     ☐ add material-ui 5
     ☐ moke ui
