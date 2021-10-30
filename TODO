@@ -13,7 +13,7 @@ Project:
     ☐ sign DOCUMENT's with card and rsa private key
   FrontEnd:
     ✔ embebbed react with websocket/stomp @done(21-10-27 23:20)
-    ☐ @critical remove thymeleaf dependency, is not used anymore
+    ☐ remove thymeleaf dependency, is not used anymore
     ☐ @critical add notes how to add embbeded typescript cra react and plugins
     ☐ @critical add debug, watch and other cool stuff to frontend
     ☐ i18n select language kiosk mode
@@ -25,3 +25,8 @@ Project:
       ☐ 
   Client:
     ☐ create some requests
+  Notes:
+    ☐ use react and typescript
+    ☐ use certificates trust-store.jks
+    ☐ use cors with websockets
+    

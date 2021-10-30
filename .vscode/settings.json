@@ -1,4 +1,5 @@
 {
+  "pasteImageToMarkdown.path": "./attachments",
   "java.configuration.updateBuildConfiguration": "automatic",
   "java.project.referencedLibraries": [
     "lib/**/*.jar",
