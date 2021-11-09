@@ -18,6 +18,11 @@
     "**/.settings": true,
     "**/factorypath": true,
   },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true
+  },
   // TODO: move to user settings
   "java.configuration.runtimes": [
     {

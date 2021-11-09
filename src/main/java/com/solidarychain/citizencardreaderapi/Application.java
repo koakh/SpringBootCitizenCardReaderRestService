@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// import pt.gov.cartaodecidadao.*;
-
 @SpringBootApplication
 public class Application {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);

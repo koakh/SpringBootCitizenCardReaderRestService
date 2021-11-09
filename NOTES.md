@@ -22,6 +22,7 @@
 		- [3. edit `pom.xml` and add **building and packaging** maven plugins](#3-edit-pomxml-and-add-building-and-packaging-maven-plugins)
 		- [4 add `src/main/java/com/solidarychain/citizencardreaderapi/config/WebMvcConfig.java`, this will do the magic trick to prefix all `@RestController` annotated controllers with `/api`, and leaving `/` free for serve frontend](#4-add-srcmainjavacomsolidarychaincitizencardreaderapiconfigwebmvcconfigjava-this-will-do-the-magic-trick-to-prefix-all-restcontroller-annotated-controllers-with-api-and-leaving--free-for-serve-frontend)
 	- [React WebSockets/Stomp](#react-websocketsstomp)
+	- [Add MUI](#add-mui)
 	- [GrapqhQL Api Notes](#grapqhql-api-notes)
 		- [Some Requests](#some-requests)
 
@@ -211,12 +212,6 @@ done now we can connect to grapqhql api without a valid certificate
 
 - [Intro to the Jackson ObjectMapper](https://www.baeldung.com/jackson-object-mapper-tutorial)
 
-
-
-
-
-
-
 ## Create Project with Spring initialzr
 
 - [Building an Application with Spring Boot](https://spring.io/guides/gs/spring-boot/)
@@ -232,7 +227,23 @@ Greetings from Spring Boot!
 
 - [Add external library .jar to Spring boot .jar internal /lib](https://stackoverflow.com/questions/30207842/add-external-library-jar-to-spring-boot-jar-internal-lib)
 
-add to Application and let it fails
+the trick is JUST using `/usr/local/lib/pteid_jni/pteidlibj.jar` builded from `autenticacao.gov` project
+
+read the notes from `autenticacao.gov`
+
+- CitizenCard.md
+- Armbian : TX9 Pro and MagicSee.md
+
+TLDR: Clone autenticacao.gov build and install, after it
+
+check presence of pteidlibj.jar with
+
+```shell
+$ ls /usr/local/lib/pteid_jni/pteidlibj.jar
+/usr/local/lib/pteid_jni/pteidlibj.jar
+```
+
+add to `Application.java`
 
 ```java
 import pt.gov.cartaodecidadao.*;
@@ -240,21 +251,8 @@ import pt.gov.cartaodecidadao.*;
   System.loadLibrary("pteidlibj");
 ```
 
-Native code library failed to load.
-java.lang.UnsatisfiedLinkError: no pteidlibj in java.library.path: [/usr/java/packages/lib, /usr/lib/aarch64-linux-gnu/jni, /lib/aarch64-linux-gnu, /usr/lib/aarch64-linux-gnu, /usr/lib/jni, /lib, /usr/lib]
-
-cp libs/arm64/pteidlibj.jar /lib/aarch64-linux-gnu/
-
-[WARNING] Some problems were encountered while building the effective model for com.solidarychain:citizencardreaderapi:jar:0.0.1-SNAPSHOT
-[WARNING] 'dependencies.dependency.systemPath' for pt.gov.cartaodecidadao:pteidlibj:jar should not point at files within the project directory, ${basedir}/libs/arm64/pteidlibj.jar will be unresolvable by dependent projects @ line 46, column 16
-[WARNING] 'build.plugins.plugin.(groupId:artifactId)' must be unique but found duplicate declaration of plugin org.springframework.boot:spring-boot-maven-plugin @ line 80, column 12
-
-
-- [ ] try delete /home/mario/Development/JavaCitizenCardReader/app/lib/arm64/pteidlibj.jar
-- [ ] use only files from /usr/local/lib (new fix)
-
-
-
+```xml
+	<dependencies>
 		<!-- require to use pteidlibj -->
 		<dependency>
 			<groupId>pt.gov.cartaodecidadao</groupId>
@@ -263,46 +261,52 @@ cp libs/arm64/pteidlibj.jar /lib/aarch64-linux-gnu/
 			<scope>system</scope>
 			<systemPath>${basedir}/libs/arm64/pteidlibj.jar</systemPath>
 		</dependency>
+	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<environmentVariables>
+						<LD_LIBRARY_PATH>/usr/local/lib</LD_LIBRARY_PATH>
+					</environmentVariables>
+					<systemPropertyVariables>
+						<java.library.path>/usr/local/lib</java.library.path>
+					</systemPropertyVariables>
+```
 
-<environmentVariables>
-	<LD_LIBRARY_PATH>/usr/local/lib</LD_LIBRARY_PATH>
-</environmentVariables>
-<systemPropertyVariables>
-	<java.library.path>/usr/local/lib</java.library.path>
-</systemPropertyVariables>
+add to `.vscode/settings.json`
 
-and MUST
-trick is  ./mvnw clean
-./mvnw spring-boot:run
+```json
+{
+  "pasteImageToMarkdown.path": "./attachments",
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    // "/usr/local/lib/pteid_jni/pteidlibj.jar",
+    "/usr/local/lib/**/*.jar"
+  ],
+}
+```
 
-now we have lib working
+now clean and run
 
-
-
-now gives other error
-
-
-
-
-
-
-debug keeps show error
-Native code library failed to load. 
-java.lang.UnsatisfiedLinkError: no pteidlibj in java.library.path: [/usr/java/packages/lib, /usr/lib/aarch64-linux-gnu/jni, /lib/aarch64-linux-gnu, /usr/lib/aarch64-linux-gnu, /usr/lib/jni, /lib, /usr/lib]
-
-add "vmArgs": "-Djava.library.path=/usr/local/lib" to launch.json
-
-with this we can see MAVEN > dependencies > pt
-
-vscjava.vscode-java-dependency
-
-
-
-
-
-
-
+```shell
+$ ./mvnw clean
+$ ./mvnw spring-boot:run
+...
+# now we have lib working
+18:44:51.077 [main] DEBUG com.solidarychain.citizencardreaderapi.Application - java version 11.0.11
+18:44:51.079 [main] DEBUG com.solidarychain.citizencardreaderapi.Application - java library path /usr/local/lib
+18:44:51.152 [main] DEBUG com.solidarychain.citizencardreaderapi.Application - pteidlibj loaded
+...
+readerCount 1
+card isActive true
+Card inserted...
+{ documentVersion:'006.007.23', documentType:'Cartão de Cidadão', 
+```
 
 ## React Frontend with CRA and Typescript
 
@@ -426,49 +430,81 @@ $ cd frontend
 $ npm install --save react-stomp-hooks
 ```
 
+## Add MUI
+
+- [Install MUI, the world's most popular React UI framework](https://mui.com/getting-started/installation/)
+- [Roboto Font](https://mui.com/components/typography/#general)
+
+
+```shell
+# MUI
+
+# with npm
+$ npm install @mui/material @emotion/react @emotion/styled
+# with yarn
+$ yarn add @mui/material @emotion/react @emotion/styled
+
+# Roboto Font
+
+# with npm
+$ npm install @fontsource/roboto
+# with yarn
+$ yarn add @fontsource/roboto
+
+# SVG icons
+# with npm
+$ npm install @mui/icons-material
+
+# with yarn
+$ yarn add @mui/icons-material
+```
+
+Then, you can import it in your entry-point.
+
+```typescript
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+```
+
+
 ## GrapqhQL Api Notes
 
 ### Some Requests
 
 ```shell
-$ HOST=127.0.0.1:5001
-$ HOST=192.168.31.206:5001
-$ HOST=192.168.122.1:5001
-$ curl -k --request POST \
-  --url https://${HOST}/graphql \
+$ HOST="127.0.0.1:5001"
+$ HOST="192.168.1.110:5001"
+$ EMAIL="admin@admin.com"
+$ PASSWORD="password"
+$ ACCESS_TOKEN=$(curl -k -s -X POST \
+  --url "https://${HOST}/graphql" \
   --header 'content-type: application/json' \
   --header 'user-agent: vscode-restclient' \
-  --data '{"query":"mutation SignInMutation
-  ($signUpEmail: String!, $signUpPassword: String!) { signIn(email: $signUpEmail, password: $signUpPassword)}","variables":{"signUpEmail":"admin@admin.com","signUpPassword":"password" } }' \
-	| jq
+  --data '{"query":"mutation SignInMutation($signUpEmail: String!, $signUpPassword: String!) { signIn(email: $signUpEmail, password: $signUpPassword)}","variables":{"signUpEmail":"'${EMAIL}'","signUpPassword":"'${PASSWORD}'" } }' \
+	| jq -r ".data .signIn")
 
-$ curl -k --request POST \
-    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNTBlYmE5YS1mZmZhLTQ1MTYtYWYwMS05ZmRjZWExNjRmZmMiLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImlhdCI6MTYzNDQ5NDQ0OH0.GlM6PXzRHXd16p_r5dG8GV6MAVEVdlxbgqYJxeNecUw' \
-    --header 'content-type: application/json' \
-    --url https://localhost:5001/graphql \
-    --data '{"query":"mutation CreateUsersMutation($input: [UserCreateInput!]!) {\n  createUsers(input: $input) {\n    users {\n      id\n      email\n      roles\n    }\n  }\n}","variables":"{\n  \"input\": {\n    \"email\": \"john@mail.com\",\n    \"roles\": \"ROLE_USER\"\n  }\n}"}'
-```
-
-
-
-
-
-curl -k --request POST \
-
-  --url https://192.168.31.206:5001/graphql \
-  --header 'content-type: application/json' \
-  --header 'user-agent: vscode-restclient' \
-  --data '{"query":"mutation SignInMutation
-  ($signUpEmail: String!, $signUpPassword: String!) {\n  signIn(email: $signUpEmail, password: $signUpPassword)\n}","variables":{"signUpEmail":"admin@admin.com","signUpPassword":"password"}}' | jq
-
-request create user
-
-HOST=192.168.31.206:5001
-JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlNTBlYmE5YS1mZmZhLTQ1MTYtYWYwMS05ZmRjZWExNjRmZmMiLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImlhdCI6MTYzNDQ5NDQ0OH0.GlM6PXzRHXd16p_r5dG8GV6MAVEVdlxbgqYJxeNecUw
-EMAIL=jane@mail.com
-curl -k --request POST \
+$ EMAIL="jane@mail.com"
+$ curl -k -s -X POST \
 	--header "Authorization: Bearer ${JWT}" \
 	--header "content-type: application/json" \
 	--url https://${HOST}/graphql \
 	--data '{ "query" : "mutation CreateUsersMutation($input: [UserCreateInput!]!) { createUsers(input: $input) { users { id email roles } } }","variables":"{ \"input\": { \"email\": \"'${EMAIL}'\", \"roles\": \"ROLE_USER\" } }"}' \
 	| jq
+{
+  "data": {
+    "createUsers": {
+      "users": [
+        {
+          "id": "3c011f8d-d070-47b0-863a-181ba41d4e68",
+          "email": "jane@mail.com",
+          "roles": [
+            "ROLE_USER"
+          ]
+        }
+      ]
+    }
+  }
+}
+```

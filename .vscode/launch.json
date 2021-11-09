@@ -5,6 +5,23 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "React Frontend",
+      "type": "chrome",
+      "request": "launch",
+      // "url": "http://192.168.1.189:8080",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceRoot}/src",
+      "userDataDir": "${workspaceRoot}/.vscode/chrome",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      },
+      "linux": {
+        // require bellow fix in settings.json to work with manjaro chromium debugger
+        // "debug.javascript.usePreview": false
+        "runtimeExecutable": "/usr/bin/chromium"
+      }
+    },
+    {
       "type": "java",
       "name": "Launch Application",
       "request": "launch",
