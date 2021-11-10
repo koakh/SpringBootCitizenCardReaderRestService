@@ -63,16 +63,23 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<!-- 
+					required for systemd service 
+					This makes sure that a MANIFEST.MF file is added to the JAR package.
+					This manifest contains a Main-Class entry that specifies which class defines the main method for your application.
+					-->
+					<executable>true</executable>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<!-- require to use pteidlibj -->
-					<environmentVariables>
+					<!-- not require to use pteidlibj -->
+					<!-- <environmentVariables>
 						<LD_LIBRARY_PATH>/usr/local/lib</LD_LIBRARY_PATH>
-					</environmentVariables>
+					</environmentVariables> -->
+					<!-- require to use pteidlibj -->
 					<systemPropertyVariables>
 						<java.library.path>/usr/local/lib</java.library.path>
 					</systemPropertyVariables>
@@ -125,7 +132,7 @@
 						</goals>
 						<phase>generate-resources</phase>
 					</execution>
-					<execution>
+					<!-- <execution>
 						<id>yarn test</id>
 						<goals>
 							<goal>yarn</goal>
@@ -137,7 +144,7 @@
 								<CI>true</CI>
 							</environmentVariables>
 						</configuration>
-					</execution>
+					</execution> -->
 					<execution>
 						<id>yarn build</id>
 						<goals>
@@ -154,14 +161,14 @@
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 			</plugin> -->
-			<!-- NOT require to use pteidlibj -->
-			<!-- <plugin>
+			<!-- require to use pteidlibj with java -jar else lib not found problem -->
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<includeSystemScope>true</includeSystemScope>
 				</configuration>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 

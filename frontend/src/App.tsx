@@ -22,7 +22,7 @@ const deleteClickHandler = () => {
   console.log('clicked deleteClickHandler....');
 }
 
-const SubscribingComponent = () {
+const SubscribingComponent = () => {
   const [lastMessage, setLastMessage] = useState('No message received yet');
   //Subscribe to /topic/test, and use handler for all received messages
   //Note that all subscriptions made through the library are automatically removed when their owning component gets unmounted.

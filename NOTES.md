@@ -25,6 +25,12 @@
 	- [Add MUI](#add-mui)
 	- [GrapqhQL Api Notes](#grapqhql-api-notes)
 		- [Some Requests](#some-requests)
+	- [Fix Failed to execute goal com.github.eirslett:frontend-maven-plugin:1.6:yarn (yarn build)](#fix-failed-to-execute-goal-comgithubeirslettfrontend-maven-plugin16yarn-yarn-build)
+	- [Spring Boot Application as a Service](#spring-boot-application-as-a-service)
+- [A fatal error has been detected by the Java Runtime Environment:](#a-fatal-error-has-been-detected-by-the-java-runtime-environment)
+- [SIGSEGV (0xb) at pc=0x00007f0b6630cc14, pid=38441, tid=38518](#sigsegv-0xb-at-pc0x00007f0b6630cc14-pid38441-tid38518)
+- [JRE version: OpenJDK Runtime Environment (11.0.11+9) (build 11.0.11+9-Ubuntu-0ubuntu2.20.04)](#jre-version-openjdk-runtime-environment-110119-build-110119-ubuntu-0ubuntu22004)
+- [get path](#get-path)
 
 ## TLDR
 
@@ -508,3 +514,63 @@ $ curl -k -s -X POST \
   }
 }
 ```
+
+## Fix Failed to execute goal com.github.eirslett:frontend-maven-plugin:1.6:yarn (yarn build)
+
+- [error:0308010C:digital envelope routines::unsupported](https://stackoverflow.com/questions/69692842/error0308010cdigital-envelope-routinesunsupported)
+
+```shell
+$ ./mvnw clean package
+[ERROR] Failed to execute goal com.github.eirslett:frontend-maven-plugin:1.6:yarn (yarn build) on project citizencardreaderapi: Failed to run task: 'yarn build' failed. org.apache.commons.exec.ExecuteException: Process exited with an error: 1 (Exit value: 1) -> [Help 1]
+
+# build manually first
+$ cd frontend
+$ yarn build
+Error: error:0308010C:digital envelope routines::unsupported
+$ cd ..
+$ ./mvnw package
+```
+
+fix adding to script `"build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build"`
+
+## Spring Boot Application as a Service
+
+- [Spring Boot Application as a Service](https://www.baeldung.com/spring-boot-app-as-a-service)
+
+```shell
+$ SERVICE_USER=ccservice
+$ sudo useradd ${SERVICE_USER}
+$ sudo passwd ${SERVICE_USER}
+$ sudo chown ${SERVICE_USER}:${SERVICE_USER} your-app.jar
+$ sudo chmod 500 your-app.jar
+```
+
+
+
+
+
+
+https://stackoverflow.com/questions/32112007/how-to-resolve-java-lang-noclassdeffounderror-in-java
+https://stackoverflow.com/questions/10935135/maven-and-adding-jars-to-system-scope
+
+
+
+
+
+
+
+
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f0b6630cc14, pid=38441, tid=38518
+#
+# JRE version: OpenJDK Runtime Environment (11.0.11+9) (build 11.0.11+9-Ubuntu-0ubuntu2.20.04)
+
+
+
+# get path
+sudo update-alternatives --config java
+sudo nano /etc/environment
+JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64/bin/java"
+source /etc/environment
