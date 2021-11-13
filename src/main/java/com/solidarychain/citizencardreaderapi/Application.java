@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Application {
-	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+  private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
   public static void main(String[] args) {
     logger.debug(String.format("java version %s", System.getProperty("java.version")));
@@ -21,6 +21,6 @@ public class Application {
     }
     System.setProperty("javax.net.ssl.trustStore", "trust-store.jks");
     System.setProperty("javax.net.ssl.trustStorePassword", "TrustStore");
-		SpringApplication.run(Application.class, args);
-	}
+    SpringApplication.run(Application.class, args);
+  }
 }

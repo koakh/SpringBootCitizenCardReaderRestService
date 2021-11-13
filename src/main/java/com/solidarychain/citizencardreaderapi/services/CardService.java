@@ -1,5 +1,7 @@
 package com.solidarychain.citizencardreaderapi.services;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.annotation.PreDestroy;
 
 import com.solidarychain.citizencardreaderapi.CardEventsCallback;
@@ -7,6 +9,8 @@ import com.solidarychain.citizencardreaderapi.config.WebSocketConfiguration;
 import com.solidarychain.citizencardreaderapi.models.Citizen;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -42,13 +46,12 @@ public class CardService {
       PTEID_ReaderSet.initSDK();
       this.readerSet = PTEID_ReaderSet.instance();
       System.out.println(String.format("readerCount %s", readerSet.readerCount()));
-      this.getCard();
-      // A finalização do SDK (é obrigatória) deve ser efectuada através da invocação
-      // do método PTEID_releaseSDK(), a invocação deste método garante que todos os
-      // processos em segundo plano são terminados e que a memória alocada é
-      // libertada.
-      // TODO: put this in application destroy
-      // PTEID_ReaderSet.releaseSDK();
+      // TODO:
+      PTEID_ReaderContext context = readerSet.getReader();
+      context.SetEventCallback(
+        new CardEventsCallback(() -> this.cardInsertedEvent(), () -> this.cardRemovedEvent()), null);
+      // TODO:
+      // this.getCard();
     } catch (Exception e) {
       System.out.println(e);
     }
@@ -82,14 +85,24 @@ public class CardService {
           this.card = this.context.getEIDCard();
           System.out.println(String.format("card isActive %b", this.card.isActive()));
           // events
-          this.context.SetEventCallback(
-              new CardEventsCallback(() -> this.cardInsertedEvent(), () -> this.cardRemovedEvent()), null);
           if (this.card.isActive()) {
             PTEID_EId eid = this.card.getID();
             Citizen citizen = new Citizen(eid);
             System.out.println(citizen);
+            // TODO
+            // try {
+            // TimeUnit.SECONDS.sleep(5);
+            // } catch (InterruptedException e) {
+            // // TODO Auto-generated catch block
+            // e.printStackTrace();
+            // }
+            // this.context.SetEventCallback(
+            // new CardEventsCallback(() -> this.cardInsertedEvent(), () ->
+            // this.cardRemovedEvent()), null);
             // // assign to singleton
             // this.card = card;
+            // TODO: remove callback
+            // context.StopEventCallback(callbackId);
           } else {
             System.err.println("no card found");
             this.card = null;
@@ -102,4 +115,22 @@ public class CardService {
 
     return this.card;
   }
+
+  // @EventListener
+  // public void doSomethingAfterApplicationReady(ApplicationReadyEvent event) {
+  //   System.out.println("ApplicationReady...");
+  //   try {
+  //     TimeUnit.SECONDS.sleep(5);
+  //   } catch (InterruptedException e) {
+  //     // TODO Auto-generated catch block
+  //     e.printStackTrace();
+  //   }
+  //   try {
+  //     this.context.SetEventCallback(
+  //         new CardEventsCallback(() -> this.cardInsertedEvent(), () -> this.cardRemovedEvent()), null);
+  //   } catch (PTEID_Exception e) {
+  //     // TODO Auto-generated catch block
+  //     e.printStackTrace();
+  //   }
+  // }
 }

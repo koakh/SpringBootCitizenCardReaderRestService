@@ -27,9 +27,13 @@
 		- [Some Requests](#some-requests)
 	- [Fix Failed to execute goal com.github.eirslett:frontend-maven-plugin:1.6:yarn (yarn build)](#fix-failed-to-execute-goal-comgithubeirslettfrontend-maven-plugin16yarn-yarn-build)
 	- [Spring Boot Application as a Service](#spring-boot-application-as-a-service)
+		- [Unable to find a suitable main class, please add a 'mainClass' property -> [Help 1]](#unable-to-find-a-suitable-main-class-please-add-a-mainclass-property---help-1)
 - [A fatal error has been detected by the Java Runtime Environment:](#a-fatal-error-has-been-detected-by-the-java-runtime-environment)
-- [SIGSEGV (0xb) at pc=0x00007f0b6630cc14, pid=38441, tid=38518](#sigsegv-0xb-at-pc0x00007f0b6630cc14-pid38441-tid38518)
+- [SIGSEGV (0xb) at pc=0x00007fa0a9ec5c14, pid=9039, tid=9126](#sigsegv-0xb-at-pc0x00007fa0a9ec5c14-pid9039-tid9126)
 - [JRE version: OpenJDK Runtime Environment (11.0.11+9) (build 11.0.11+9-Ubuntu-0ubuntu2.20.04)](#jre-version-openjdk-runtime-environment-110119-build-110119-ubuntu-0ubuntu22004)
+- [Java VM: OpenJDK 64-Bit Server VM (11.0.11+9-Ubuntu-0ubuntu2.20.04, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)](#java-vm-openjdk-64-bit-server-vm-110119-ubuntu-0ubuntu22004-mixed-mode-sharing-tiered-compressed-oops-g1-gc-linux-amd64)
+- [Problematic frame:](#problematic-frame)
+- [V  [libjvm.so+0x564c14]](#v--libjvmso0x564c14)
 - [get path](#get-path)
 
 ## TLDR
@@ -45,6 +49,8 @@ $ curl localhost:8080/api/card/read
 
 ### Autenticação.gov
 
+- https://amagovpt.github.io/docs.autenticacao.gov/manual_sdk.html#linux
+- 
 - [pt.gov.cartaodecidadao:pteidlib v3.5.0](https://amagovpt.github.io/docs.autenticacao.gov/sdk/java/overview-summary.html)
 
 - [X] Get events for insertion and removal of cards
@@ -545,6 +551,20 @@ $ sudo chown ${SERVICE_USER}:${SERVICE_USER} your-app.jar
 $ sudo chmod 500 your-app.jar
 ```
 
+TODO: create script in `Makefile` and `ccserver.service`
+
+### Unable to find a suitable main class, please add a 'mainClass' property -> [Help 1]
+
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:2.5.5:run (default-cli) on project citizencardreaderapi: Unable to find a suitable main class, please add a 'mainClass' property -> [Help 1]
+
+- https://stackoverflow.com/questions/32368328/unable-to-find-a-suitable-main-class-please-add-a-mainclass-property-spring
+
+fixe with
+
+```shell
+$ ./mvnw install
+$ make run
+```
 
 
 
@@ -558,15 +578,42 @@ https://stackoverflow.com/questions/10935135/maven-and-adding-jars-to-system-sco
 
 
 
-
-
 #
 # A fatal error has been detected by the Java Runtime Environment:
 #
-#  SIGSEGV (0xb) at pc=0x00007f0b6630cc14, pid=38441, tid=38518
+#  SIGSEGV (0xb) at pc=0x00007fa0a9ec5c14, pid=9039, tid=9126
 #
 # JRE version: OpenJDK Runtime Environment (11.0.11+9) (build 11.0.11+9-Ubuntu-0ubuntu2.20.04)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.11+9-Ubuntu-0ubuntu2.20.04, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# V  [libjvm.so+0x564c14]
 
+this happens if we have a card insert......seems that occurs when try read card
+
+it was the offending line 
+
+this.context.SetEventCallback(
+  new CardEventsCallback(() -> this.cardInsertedEvent(), () -> this.cardRemovedEvent()), null);
+
+
+
+
+https://www.cyberciti.biz/faq/install-java-on-ubuntu-20-04-linux/
+
+$ apt-cache --names-only search 'openjdk-[0-9]*-(jre|jdk)' | sort -t '-' -k 2 -n
+
+$ sudo apt install openjdk-17-jre-headless
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+openjdk-17-jre-headless is already the newest version (17+35-1~20.04).
+openjdk-17-jre-headless set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 10 not upgraded.
+
+$  java --version
+openjdk 17 2021-09-14
+OpenJDK Runtime Environment (build 17+35-Ubuntu-120.04)
+OpenJDK 64-Bit Server VM (build 17+35-Ubuntu-120.04, mixed mode, sharing)
 
 
 # get path
@@ -574,3 +621,13 @@ sudo update-alternatives --config java
 sudo nano /etc/environment
 JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64/bin/java"
 source /etc/environment
+
+
+
+
+https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/#?
+
+
+
+./mvnw spring-boot:repackage
+[WARNING] 'dependencies.dependency.systemPath' for pt.gov.cartaodecidadao:pteidlibj:jar should not point at files within the project directory, ${basedir}/libs/arm64/pteidlibj.jar will be unresolvable by dependent projects @ line 51, column 16
