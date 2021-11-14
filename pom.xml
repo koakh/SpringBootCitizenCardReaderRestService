@@ -92,9 +92,59 @@
 					<!-- require to use pteidlibj -->
 					<systemPropertyVariables>
 						<java.library.path>/usr/local/lib</java.library.path>
-					</systemPropertyVariables>					
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
+			<!--
+			The Apache Assembly plugin
+			https://blog.frankel.ch/creating-self-contained-executable-jars/#the-spring-boot-plugin 
+			-->
+			<!-- <plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>com.solidarychain.citizencardreaderapi.Application</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+				</executions>
+			</plugin> -->
+			<!--
+			The Apache Shade plugin
+			https://blog.frankel.ch/creating-self-contained-executable-jars/#the-spring-boot-plugin 
+			-->
+			<!-- <plugin>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>shade</id>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.solidarychain.citizencardreaderapi.Application</mainClass>
+									<manifestEntries>
+										<Multi-Release>true</Multi-Release>
+									</manifestEntries>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
 			<!-- react frontend -->
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>

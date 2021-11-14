@@ -2,10 +2,13 @@ SHELL := /bin/bash
 REACT_HOST := localhost
 REACT_BROWSER=none
 REACT_APP_HOST_WS := $(REACT_HOST)
+PACKAGE := target/citizencardreaderapi-0.0.1-SNAPSHOT.jar
+# PACKAGE := target/citizencardreaderapi-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 
 # NOTE to debug frontend we must use REACT_HOST := localhost and forword port 8460 manually on vscode to skip cert problems
 
 run:
+#	add -X to debug command
 	@./mvnw spring-boot:run
 
 # use -e to see full error log
@@ -24,7 +27,7 @@ runBuild:
 # -Xint -Djava.compiler=NONE
 # above works to, same as -Djava.library.path=/usr/local/lib
 # LD_LIBRARY_PATH=/usr/local/lib
-	@java -Xms512m -Xmx1024m -Djava.awt.headless=true -Djava.library.path=/usr/local/lib -jar target/citizencardreaderapi-0.0.1-SNAPSHOT.jar
+	@java -Xms512m -Xmx1024m -Djava.awt.headless=true -Djava.library.path=/usr/local/lib -jar $(PACKAGE)
 
 runClass:
 # TODO: the trick to use in system service without the annoying error
