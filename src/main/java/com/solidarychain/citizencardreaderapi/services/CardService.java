@@ -9,8 +9,6 @@ import com.solidarychain.citizencardreaderapi.config.WebSocketConfiguration;
 import com.solidarychain.citizencardreaderapi.models.Citizen;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +30,7 @@ public class CardService {
   private void cardInsertedEvent() {
     System.out.println("Card inserted...");
     this.websocket.convertAndSend(WebSocketConfiguration.TOPIC_PREFIX + "/test", "{ message: 'Card inserted' }");
+    this.getCard();
   }
 
   private void cardRemovedEvent() {
@@ -48,8 +47,8 @@ public class CardService {
       System.out.println(String.format("readerCount %s", readerSet.readerCount()));
       // TODO:
       PTEID_ReaderContext context = readerSet.getReader();
-      context.SetEventCallback(
-        new CardEventsCallback(() -> this.cardInsertedEvent(), () -> this.cardRemovedEvent()), null);
+      context.SetEventCallback(new CardEventsCallback(() -> this.cardInsertedEvent(), () -> this.cardRemovedEvent()),
+          null);
       // TODO:
       // this.getCard();
     } catch (Exception e) {
@@ -84,6 +83,9 @@ public class CardService {
         if (this.context.isCardPresent()) {
           this.card = this.context.getEIDCard();
           System.out.println(String.format("card isActive %b", this.card.isActive()));
+          // this.context.SetEventCallback(
+          // new CardEventsCallback(() -> this.cardInsertedEvent(), () ->
+          // this.cardRemovedEvent()), null);
           // events
           if (this.card.isActive()) {
             PTEID_EId eid = this.card.getID();
@@ -91,9 +93,8 @@ public class CardService {
             System.out.println(citizen);
             // TODO
             // try {
-            // TimeUnit.SECONDS.sleep(5);
+            // TimeUnit.SECONDS.sleep(3);
             // } catch (InterruptedException e) {
-            // // TODO Auto-generated catch block
             // e.printStackTrace();
             // }
             // this.context.SetEventCallback(
@@ -118,19 +119,20 @@ public class CardService {
 
   // @EventListener
   // public void doSomethingAfterApplicationReady(ApplicationReadyEvent event) {
-  //   System.out.println("ApplicationReady...");
-  //   try {
-  //     TimeUnit.SECONDS.sleep(5);
-  //   } catch (InterruptedException e) {
-  //     // TODO Auto-generated catch block
-  //     e.printStackTrace();
-  //   }
-  //   try {
-  //     this.context.SetEventCallback(
-  //         new CardEventsCallback(() -> this.cardInsertedEvent(), () -> this.cardRemovedEvent()), null);
-  //   } catch (PTEID_Exception e) {
-  //     // TODO Auto-generated catch block
-  //     e.printStackTrace();
-  //   }
+  // System.out.println("ApplicationReady...");
+  // try {
+  // TimeUnit.SECONDS.sleep(5);
+  // } catch (InterruptedException e) {
+  // // TODO Auto-generated catch block
+  // e.printStackTrace();
+  // }
+  // try {
+  // this.context.SetEventCallback(
+  // new CardEventsCallback(() -> this.cardInsertedEvent(), () ->
+  // this.cardRemovedEvent()), null);
+  // } catch (PTEID_Exception e) {
+  // // TODO Auto-generated catch block
+  // e.printStackTrace();
+  // }
   // }
 }

@@ -27,7 +27,7 @@ runBuild:
 # -Xint -Djava.compiler=NONE
 # above works to, same as -Djava.library.path=/usr/local/lib
 # LD_LIBRARY_PATH=/usr/local/lib
-	@java -Xms512m -Xmx1024m -Djava.awt.headless=true -Djava.library.path=/usr/local/lib -jar $(PACKAGE)
+	@/usr/lib/jvm/java-11-openjdk-amd64/bin/java -Xms512m -Xmx1024m -Djava.awt.headless=true -Djava.library.path=/usr/local/lib -jar $(PACKAGE)
 
 runClass:
 # TODO: the trick to use in system service without the annoying error
